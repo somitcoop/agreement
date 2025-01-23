@@ -18,29 +18,27 @@ class Agreement(models.Model):
         """Generate PDF report for agreement"""
         self.ensure_one()
         try:
-            # Obtener el informe usando el nombre completo
-            report_name = 'agreement_legal.report_agreement_document'
-            report_action = self.env.ref(report_name)
+            report_action = self.env['ir.actions.report'].search([
+                ('report_name', '=', 'agreement_legal.report_agreement_document'),
+                ('report_type', '=', 'qweb-pdf'),
+                ('model', '=', 'agreement')
+            ], limit=1)
 
             if not report_action:
-                raise UserError(_("PDF report template not found"))
+                raise UserError(_("PDF report action not found"))
 
-            # Generar el PDF usando el método render
-            pdf_content = report_action.with_context(
-                active_model=self._name,
-                active_id=self.id
-            ).render_qweb_pdf([self.id])[0]
+            pdf_content, report_type = report_action._render_qweb_pdf(self.ids)
 
             if not pdf_content:
                 raise UserError(_("Failed to generate PDF content"))
 
             return pdf_content
 
-        except ValueError as e:
-            _logger.error("Report template error for agreement %s: %s", self.id, str(e))
-            raise UserError(_("Report template not found. Please check the configuration."))
-        except Exception as e:
+        except UserError as e:
             _logger.error("Error generating PDF for agreement %s: %s", self.id, str(e))
+            raise
+        except Exception as e:
+            _logger.error("Unexpected error generating PDF for agreement %s: %s", self.id, str(e))
             raise UserError(_("Error generating PDF: %s") % str(e))
 
     def _get_cached_pdf(self):
