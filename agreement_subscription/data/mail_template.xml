@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="email_template_subscription_agreement" model="mail.template">
+        <field name="name">Subscription Agreement Created</field>
+        <field name="model_id" ref="agreement.model_agreement"/>
+        <field name="subject">Agreement ${object.name} Created</field>
+        <field name="email_from">${user.email_formatted | safe}</field>
+        <field name="partner_to">${object.partner_id.id}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p>Dear ${object.partner_id.name},</p>
+                <p>The agreement ${object.name} has been created and is ready for your review.</p>
+                <br/>
+                <p>Best regards,</p>
+            </div>
+        </field>
+    </record>
+</odoo>

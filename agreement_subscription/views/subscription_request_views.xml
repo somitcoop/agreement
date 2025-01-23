@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_agreement_subscription_form" model="ir.actions.act_window">
+        <field name="name">Agreements</field>
+        <field name="res_model">agreement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('subscription_request_id', '=', active_id)]</field>
+        <field name="context">{'default_subscription_request_id': active_id}</field>
+    </record>
+    <record id="subscription_request_form_view_inherit" model="ir.ui.view">
+        <field name="name">subscription.request.form.inherit.agreement</field>
+        <field name="model">subscription.request</field>
+        <field name="inherit_id" ref="cooperator.subscription_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/widget" position="before">
+                <div name="button_box" class="oe_button_box">
+                    <button name="create_agreement"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-text"
+                        attrs="{'invisible': [('agreement_id', '!=', False)]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Create</span>
+                            <span class="o_stat_text">Agreement</span>
+                        </div>
+                    </button>
+                    <button name="%(action_agreement_subscription_form)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        attrs="{'invisible': [('agreement_id', '=', False)]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Agreements</span>
+                        </div>
+                    </button>
+                    <field name="agreement_id" invisible="1"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

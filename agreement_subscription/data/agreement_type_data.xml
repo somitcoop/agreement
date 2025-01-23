@@ -1,0 +1,6 @@
+<odoo>
+    <record id="agreement_type_subscription" model="agreement.type">
+        <field name="name">Subscription</field>
+        <field name="active">True</field>
+    </record>
+</odoo>
