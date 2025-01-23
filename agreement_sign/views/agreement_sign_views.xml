@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_agreement_form_inherit_sign" model="ir.ui.view">
+        <field name="name">agreement.form.inherit.sign</field>
+        <field name="model">agreement</field>
+        <field name="inherit_id" ref="agreement_legal.partner_agreement_form_view"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_send_to_sign"
+                        type="object"
+                        string="Send for Signature"
+                        class="btn-primary"
+                        attrs="{'invisible': [('sign_request_id', '!=', False)]}"
+                />
+                <field name="sign_request_id" invisible="1"/>
+            </header>
+        </field>
+    </record>
+    <record id="view_agreement_sign_form" model="ir.ui.view">
+        <field name="name">agreement.sign.form</field>
+        <field name="model">agreement.sign</field>
+        <field name="arch" type="xml">
+            <form string="Agreement Sign">
+                <sheet>
+                    <group>
+                        <field name="agreement_id"/>
+                        <field name="sign_template_id"/>
+                        <field name="sign_request_id" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <field name="company_id"/>
+                    </group>
+                    <!-- Añadir botón para enviar para firma -->
+                    <footer>
+                        <button name="action_send_for_signature" string="Send for Signature" type="object" states="draft"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+    <record id="agreement_form_view_inherit" model="ir.ui.view">
+        <field name="name">agreement.form.inherit</field>
+        <field name="model">agreement</field>
+        <field name="inherit_id" ref="agreement_legal.partner_agreement_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_create_sign_request"
+                        string="Sign Request"
+                        type="object"
+                        class="oe_highlight"
+                        />
+            </xpath>
+        </field>
+    </record>
+</odoo>

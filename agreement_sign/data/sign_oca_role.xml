@@ -1,0 +1,7 @@
+<odoo>
+    <record id="sign_role_agreement" model="sign.oca.role">
+        <field name="name">Agreement Signatory</field>
+        <field name="partner_selection_policy">expression</field>
+        <field name="expression_partner">{{object.partner_id.id}}</field>
+    </record>
+</odoo>

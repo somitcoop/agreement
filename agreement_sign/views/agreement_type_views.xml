@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_agreement_type_form_inherit_sign" model="ir.ui.view">
+        <field name="name">agreement.type.form.inherit.sign</field>
+        <field name="model">agreement.type</field>
+        <field name="inherit_id" ref="agreement.agreement_type_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main']" position="after">
+                <group name="sign_config" string="Sign Configuration">
+                    <field name="sign_template_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
