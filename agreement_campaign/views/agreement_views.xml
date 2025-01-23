@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="agreement_form_view_inherit_campaign" model="ir.ui.view">
+        <field name="name">agreement.form.inherit.campaign</field>
+        <field name="model">agreement</field>
+        <field name="inherit_id" ref="agreement.agreement_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='left']" position="inside">
+                <field name="campaign_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="agreement_tree_view_inherit_campaign" model="ir.ui.view">
+        <field name="name">agreement.tree.inherit.campaign</field>
+        <field name="model">agreement</field>
+        <field name="inherit_id" ref="agreement.agreement_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="campaign_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="agreement_search_view_inherit_campaign" model="ir.ui.view">
+        <field name="name">agreement.search.inherit.campaign</field>
+        <field name="model">agreement</field>
+        <field name="inherit_id" ref="agreement.agreement_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="campaign_id"/>
+            </field>
+            <filter name="partner_groupby" position="after">
+                <filter name="campaign_groupby" string="Campaign" context="{'group_by': 'campaign_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_campaign_agreement_form" model="ir.actions.act_window">
+        <field name="name">Agreements</field>
+        <field name="res_model">agreement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('campaign_id', '=', active_id)]</field>
+        <field name="context">{'default_campaign_id': active_id}</field>
+    </record>
+    <record id="view_funding_campaign_form" model="ir.ui.view">
+        <field name="name">funding.campaign.form</field>
+        <field name="model">funding.campaign</field>
+        <field name="inherit_id" ref="funding_campaign.view_funding_campaign_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="%(action_campaign_agreement_form)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        string="Agreements"/>
+            </div>
+        </field>
+    </record>
+</odoo>
