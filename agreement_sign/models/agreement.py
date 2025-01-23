@@ -18,22 +18,23 @@ class Agreement(models.Model):
         """Generate PDF report for agreement"""
         self.ensure_one()
         try:
-            report_action = self.env['ir.actions.report'].search([
-                ('report_name', '=', 'agreement_legal.report_agreement_document'),
-                ('report_type', '=', 'qweb-pdf'),
-                ('model', '=', 'agreement')
-            ], limit=1)
+            # Usar referencia XML directa para el informe
+            report_action = self.env.ref('agreement_legal.report_agreement_document')
 
             if not report_action:
                 raise UserError(_("PDF report action not found"))
 
-            pdf_content, _ = report_action._render_qweb_pdf(self.id)
+            # Usar el método render_qweb_pdf con el registro actual
+            pdf_content, _ = report_action._render_qweb_pdf(self)
 
             if not pdf_content:
                 raise UserError(_("Failed to generate PDF content"))
 
             return pdf_content
 
+        except ValueError as ve:
+            _logger.error("XML Reference Error for agreement %s: %s", self.id, str(ve))
+            raise UserError(_("Could not find report template. Please check XML configuration."))
         except UserError as e:
             _logger.error("Error generating PDF for agreement %s: %s", self.id, str(e))
             raise
