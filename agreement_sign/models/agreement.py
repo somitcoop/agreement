@@ -27,7 +27,8 @@ class Agreement(models.Model):
             if not report_action:
                 raise UserError(_("PDF report action not found"))
 
-            pdf_content = report_action._render_qweb_pdf(self.ids)[0]
+            pdf_content, _ = report_action._render_qweb_pdf(self.id)
+
             if not pdf_content:
                 raise UserError(_("Failed to generate PDF content"))
 
