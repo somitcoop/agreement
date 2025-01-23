@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_agreement_loan_form" model="ir.actions.act_window">
+        <field name="name">Agreements</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">agreement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('loan_id', '=', active_id)]</field>
+        <field name="context">{'default_loan_id': active_id}</field>
+    </record>
+    <record id="account_loan_form_view_inherit" model="ir.ui.view">
+        <field name="name">account.loan.form.inherit.agreement</field>
+        <field name="model">account.loan</field>
+        <field name="inherit_id" ref="account_loan.account_loan_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="create_agreement"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-text"
+                        attrs="{'invisible': [('agreement_id', '!=', False)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Create</span>
+                        <span class="o_stat_text">Agreement</span>
+                    </div>
+                </button>
+                <button name="%(action_agreement_loan_form)d"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        attrs="{'invisible': [('agreement_id', '=', False)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Agreements</span>
+                    </div>
+                </button>
+                <field name="agreement_id" invisible="1"/>
+            </div>
+        </field>
+    </record>
+</odoo>

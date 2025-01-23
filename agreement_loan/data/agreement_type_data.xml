@@ -1,0 +1,6 @@
+<odoo>
+    <record id="agreement_type_loan" model="agreement.type">
+        <field name="name">Loan</field>
+        <field name="active">True</field>
+    </record>
+</odoo>
